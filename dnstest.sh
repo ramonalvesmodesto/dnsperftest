@@ -35,7 +35,7 @@ PROVIDERSV6="
 "
 
 # Testing for IPv6
-$dig +short +tries=1 +time=2 +stats @2a0d:2a00:1::1 www.google.com |grep 216.239.38.120 >/dev/null 2>&1
+dig +short +tries=1 +time=2 +stats @2a0d:2a00:1::1 www.google.com |grep 216.239.38.120 >/dev/null 2>&1
 if [ $? = 0 ]; then
     hasipv6="true"
 fi
@@ -84,7 +84,7 @@ for p in $NAMESERVERS $providerstotest; do
 
     printf "%-21s" "$pname"
     for d in $DOMAINS2TEST; do
-        ttime=`$dig +tries=1 +time=2 +stats @$pip $d |grep "Query time:" | cut -d : -f 2- | cut -d " " -f 2`
+        ttime=`dig +tries=1 +time=2 +stats @$pip $d |grep "Query time:" | cut -d : -f 2- | cut -d " " -f 2`
         if [ -z "$ttime" ]; then
 	        #let's have time out be 1s = 1000ms
 	        ttime=1000
